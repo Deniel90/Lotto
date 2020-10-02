@@ -16,25 +16,6 @@ namespace Lotto
             hány darab kettes, hármas, négyes, vagy ötös találata lett volna.
             */
 
-            List<int> szamok = new List<int>();
-            Console.WriteLine("Lottósorsoláshoz kérek 5 különböző számot 1-90-ig");
-            int db = 0;
-            int szam;
-            do
-            {
-                do
-                {
-                    Console.Write((db + 1) + " szám: ");
-                } while (!Int32.TryParse(Console.ReadLine(), out szam) || (szam < 1 || szam > 90));
-
-                if (!szamok.Contains(szam))
-                {
-                    db++;
-                    szamok.Add(szam);
-                }
-
-            } while (szamok.Count < 5);
-
             //korábbi lottószámok beolvasása Osztály típusú listába
             List<KorabbiSzamok> korabbiszamok = new List<KorabbiSzamok>();
             StreamReader sr = new StreamReader("otos.csv");
@@ -43,6 +24,28 @@ namespace Lotto
                 string[] temp = sr.ReadLine().Split(';');
                 korabbiszamok.Add(new KorabbiSzamok(int.Parse(temp[11]), int.Parse(temp[12]), int.Parse(temp[13]), int.Parse(temp[14]), int.Parse(temp[15])));
             }
+
+            //saját lottószámok bekérése
+            List<int> szamok = new List<int>();
+            Console.WriteLine("Lottósorsoláshoz kérek 5 különböző számot 1-90-ig");
+            int db = 0;
+            int szam;
+            do
+            {
+                //addig ismétli a bekérést, amíg az input meg nem felel a kritériumoknak: int típus 1-90-ig
+                do
+                {
+                    Console.Write((db + 1) + " szám: ");
+                } while (!Int32.TryParse(Console.ReadLine(), out szam) || (szam < 1 || szam > 90));
+
+                //csak akkor veszi listába ha még nem szerepel benne
+                if (!szamok.Contains(szam))
+                {
+                    db++;
+                    szamok.Add(szam);
+                }
+
+            } while (szamok.Count < 5); //addig ismétli, amíg 5 eleme nem lesz a listának
 
             //saját lottószámok összevetése a korábbi számokkal
             int talalat;
@@ -98,7 +101,6 @@ namespace Lotto
                 szamok[0], szamok[1], szamok[2], szamok[3], szamok[4], kettes_talalat, harmas_talalat, negyes_talalat, otos_talalat);
 
             Console.ReadKey();
-
         }
     }
 }
