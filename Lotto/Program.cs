@@ -86,8 +86,16 @@ namespace Lotto
                     case 2: kettes_talalat++; break;
                     default: break;
                 }
-
             }
+
+            //találatok kiírása
+            szamok.Sort();
+            Console.WriteLine("A(z) {0}, {1}, {2}, {3}, {4} számkombinációval az összes korábbi számhúzásoknál összesen\n" +
+                "{5} kettes találat,\n" +
+                "{6} hármas találat,\n" +
+                "{7} négyes találat, és\n" +
+                "{8} ötös találat lett volna.", 
+                szamok[0], szamok[1], szamok[2], szamok[3], szamok[4], kettes_talalat, harmas_talalat, negyes_talalat, otos_talalat);
 
             Console.ReadKey();
 
