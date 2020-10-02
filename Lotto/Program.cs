@@ -35,13 +35,58 @@ namespace Lotto
 
             } while (szamok.Count < 5);
 
-
+            //korábbi lottószámok beolvasása Osztály típusú listába
             List<KorabbiSzamok> korabbiszamok = new List<KorabbiSzamok>();
             StreamReader sr = new StreamReader("otos.csv");
             while (!sr.EndOfStream)
             {
                 string[] temp = sr.ReadLine().Split(';');
                 korabbiszamok.Add(new KorabbiSzamok(int.Parse(temp[11]), int.Parse(temp[12]), int.Parse(temp[13]), int.Parse(temp[14]), int.Parse(temp[15])));
+            }
+
+            //saját lottószámok összevetése a korábbi számokkal
+            int talalat;
+            int kettes_talalat = 0;
+            int harmas_talalat = 0;
+            int negyes_talalat = 0;
+            int otos_talalat = 0;
+
+            //találatok keresése
+            for (int i = 0; i < korabbiszamok.Count; i++)
+            {
+                talalat = 0;
+
+                if (szamok.Contains(korabbiszamok[i].Szam1))
+                {
+                    talalat++;
+                }
+                if (szamok.Contains(korabbiszamok[i].Szam2))
+                {
+                    talalat++;
+                }
+                if (szamok.Contains(korabbiszamok[i].Szam3))
+                {
+                    talalat++;
+                }
+                if (szamok.Contains(korabbiszamok[i].Szam4))
+                {
+                    talalat++;
+                }
+                if (szamok.Contains(korabbiszamok[i].Szam5))
+                {
+                    talalat++;
+                }
+
+                //nyereményes találatok bejegyzése
+                switch (talalat)
+                {
+                    case 5: otos_talalat++; break;
+                    case 4: negyes_talalat++; break;
+                    case 3: harmas_talalat++; break;
+                    case 2: kettes_talalat++; break;
+                    default: break;
+                }
+
             }
 
             Console.ReadKey();

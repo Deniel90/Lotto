@@ -23,5 +23,6 @@ namespace Lotto
         public int Szam2 { get => szam2; set => szam2 = value; }
         public int Szam3 { get => szam3; set => szam3 = value; }
         public int Szam4 { get => szam4; set => szam4 = value; }
+        public int Szam5 { get => szam5; set => szam5 = value; }
     }
 }
